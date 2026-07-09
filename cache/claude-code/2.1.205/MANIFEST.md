@@ -17,7 +17,10 @@
 | B2 确认通知 | ✅ 已验证 | `settings.json` `hooks.Notification` command → `on_ask.ps1` |
 | C1 caveman | ✅ | `claude plugin install caveman@caveman`(hooks 在 ~/.claude/hooks/,plugin manifest 注册) |
 | C2 rtk | ✅ | `rtk init -g`(hook + RTK.md + CLAUDE.md @RTK.md) |
-| A1-A4 习惯规则 | ⬜ 未部署 | 本次未要求。需要则把 features.md 写入 ~/.claude/CLAUDE.md |
+| A1 时间戳 | ✅ | 写入 ~/.claude/CLAUDE.md(见 CLAUDE.md.dev-habit-pack.md) |
+| A2 子任务 | ✅ 原生 | Claude Code 已原生配置,跳过 |
+| A3 状态行 | ✅ 原生 | Claude 原生 `statusLine`(statusline.sh),跳过 |
+| A4 Skill 优先 | ✅ | 写入 ~/.claude/CLAUDE.md |
 
 ## 文件清单
 
@@ -55,6 +58,9 @@
 
 6. 重启 Claude Code 验证。
 
+7. **写习惯规则**(A1 时间戳 + A4 skill 优先)到 `~/.claude/CLAUDE.md`(见 `CLAUDE.md.dev-habit-pack.md`,追加不覆盖):
+   - A2 子任务 / A3 状态行:Claude Code 原生已有,跳过。
+
 ## 验证
 
 | 项 | 方法 | 成功标准 |
@@ -63,6 +69,8 @@
 | 确认通知 | 触发权限确认 | 弹 toast「需确认」 |
 | caveman | 说 `/caveman` 或 `caveman mode` | 回复变 caveman 风格 |
 | rtk | 跑 `git status` | 命令走 rtk 改写;`rtk gain` 有统计 |
+| A1 时间戳 | 任意回复 | 首行 `⏱ HH:MM:SS +08 · prev Ns` |
+| A4 skill 优先 | 请求匹配某 skill | AI 调 `skill` 工具,非凭记忆答 |
 
 ## 与 opencode 的关键区别
 
