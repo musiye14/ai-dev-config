@@ -1,0 +1,14 @@
+# 运行时产物
+**/notify-debug.log
+**/*.bak
+**/*.devhabit-bak
+
+# OS / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 临时
+*.tmp
+*.log
