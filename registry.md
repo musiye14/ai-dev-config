@@ -36,12 +36,14 @@
 
 有些功能必须本地脚本才能实现,这类才入库,放 `scripts/`。当前:
 
-- `scripts/on_stop.ps1` — 对话轮结束弹 Win11 toast(BurntToast,缺失降级 MessageBox)
-- `scripts/on_ask.ps1` — 需确认时弹 Win11 toast
+- `scripts/on_stop.ps1` — 对话轮结束弹 Win11 toast「对话完成」
+- `scripts/on_ask.ps1` — 需确认时弹 Win11 toast「需确认」
 
 各工具接线方式:
-- **Claude Code**: `settings.json` 的 `Stop` / `Notification` hook 调脚本
-- **Codex**: `hooks.json` 的 `Stop` / `PermissionRequest` hook 调脚本
-- **opencode**: `permission.asked` 用插件调 `on_ask.ps1`;对话结束用 TUI 原生 `tui.json` 的 `attention`(无需脚本)
+- **Claude Code**(已验证):`settings.json` 的 `hooks.Stop` 加 command 类型 hook 调 `on_stop.ps1`;`hooks.Notification` 加 command hook 调 `on_ask.ps1`。脚本放 `~/.claude/scripts/`。命令用 `pwsh -NoProfile -ExecutionPolicy Bypass -File <脚本> -Title/-Body "..."`。Stop/Notification 是原生 hook,同步执行,无超时坑。
+- **Codex**：`hooks.json` 的 `Stop` / `PermissionRequest` hook 调脚本。
+- **opencode**(已验证,踩坑见 cache/opencode/*/NOTES.md):
+  - 完成通知:**不能用 plugin hook**(event/tool hook 有 ~1s 硬超时,spawnSync 被 SIGTERM;detached spawn 被 WinRT 抑制)。改为 **AI 用 bash 工具自己跑** `pwsh -File on_stop.ps1`,规则写进 instructions(`system.transform` 每轮强化)。
+  - 确认通知:`permission.ask` 插件 hook → detached spawn `on_ask.ps1`(此 hook 不硬超时,可用)。
 
-> 依赖:无。脚本用原生 WinRT toast API(Win10/11 自带),无需 BurntToast。WinRT 不可用时降级阻塞 MessageBox。
+> 依赖:**pwsh 7 + BurntToast**(`Install-Module BurntToast -Scope CurrentUser -Force`)。BurntToast 只在 pwsh 7 模块路径,脚本必须用 `pwsh` 跑(powershell.exe 5.1 找不到模块)。pwsh 7 无 WinRT 类型投影,只能靠 BurntToast,不能直接调 `Windows.UI.Notifications` API。
