@@ -65,7 +65,8 @@ dev-habit-pack/
 
 ## 已验证快照
 
-- `cache/opencode/1.17.14/` — 含 `MANIFEST.md`(迁移步骤 + 验证清单)+ `NOTES.md`(踩坑笔记,迁移必读)。
+- `cache/opencode/1.17.14/` — 含 `MANIFEST.md`(迁移步骤 + 验证清单)+ `NOTES.md`(踩坑笔记,迁移必读)。全功能(A 习惯 + B 通知 + C 插件)。
+- `cache/claude-code/2.1.205/` — 含 `MANIFEST.md` + `settings.hooks.patch.md`。已部署 B 通知 + C1 caveman + C2 rtk;A 习惯规则未部署(本次未要求)。
 
 ## 各工具通知接线速查(B 类)
 
