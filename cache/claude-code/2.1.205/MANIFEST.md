@@ -15,7 +15,7 @@
 |---|---|---|
 | B1 完成通知 | ✅ 已验证 | `settings.json` `hooks.Stop` command → `on_stop.ps1` |
 | B2 确认通知 | ✅ 已验证 | `settings.json` `hooks.Notification` command → `on_ask.ps1` |
-| C1 caveman | ✅ | `claude plugin install caveman@caveman`(hooks 在 ~/.claude/hooks/,plugin manifest 注册) |
+| C1 caveman | ✅ | `claude plugin install caveman@caveman` **+ `claude plugin enable caveman@caveman`**(装完默认可能 disabled,必须显式 enable) |
 | C2 rtk | ✅ | `rtk init -g`(hook + RTK.md + CLAUDE.md @RTK.md) |
 | A1 时间戳 | ✅ | 写入 ~/.claude/CLAUDE.md(见 CLAUDE.md.dev-habit-pack.md) |
 | A2 子任务 | ✅ 原生 | Claude Code 已原生配置,跳过 |
@@ -48,7 +48,9 @@
    ```
    claude plugin marketplace add JuliusBrussee/caveman
    claude plugin install caveman@caveman
+   claude plugin enable caveman@caveman
    ```
+   > 注意:装完默认可能是 `✘ disabled`,**必须 `enable`** 才生效。别只看 `~/.claude/.caveman-active` 文件判断(那是残留,不代表 plugin 在跑)。用 `claude plugin list` 看 `Status: ✔ enabled` 才算真装好。
 
 5. **接 rtk**(C2,可选,二进制需先装):
    ```
@@ -67,7 +69,7 @@
 |---|---|---|
 | 完成通知 | AI 回复完成 | 弹 toast「Claude Code 对话完成」 |
 | 确认通知 | 触发权限确认 | 弹 toast「需确认」 |
-| caveman | 说 `/caveman` 或 `caveman mode` | 回复变 caveman 风格 |
+| caveman | `claude plugin list` 看 Status;说 `/caveman` 或 `caveman mode` | `Status: ✔ enabled`(非 disabled);回复变 caveman 风格 |
 | rtk | 跑 `git status` | 命令走 rtk 改写;`rtk gain` 有统计 |
 | A1 时间戳 | 任意回复 | 首行 `⏱ HH:MM:SS +08 · prev Ns` |
 | A4 skill 优先 | 请求匹配某 skill | AI 调 `skill` 工具,非凭记忆答 |

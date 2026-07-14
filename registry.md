@@ -18,6 +18,7 @@
   - 其它: `npx skills add JuliusBrussee/caveman -a <agent>`
 - **验证**: flag 文件 `~/.config/opencode/.caveman-active` 存在即开启;`/caveman-stats` 看统计
 - **注意**: opencode 官方路径是 plugin(session.created 写 flag + chat.message 解析命令 + system.transform 每轮强化)。纯 skill 也能用但失去动态切换,易漂移。
+- **Claude Code 坑**: `claude plugin install` 装完默认可能是 `✘ disabled`,**必须 `claude plugin enable caveman@caveman`** 才生效。用 `claude plugin list` 看 `Status`,别只看 `.caveman-active` 文件(残留,不代表 plugin 在跑)。
 
 ### rtk — 命令 token 优化
 
